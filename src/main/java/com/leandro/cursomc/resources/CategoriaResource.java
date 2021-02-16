@@ -22,7 +22,7 @@ public class CategoriaResource {
 	private CategoriaService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Integer id){
 		
 		Optional<Categoria> obj = service.buscar(id);
 		
@@ -32,18 +32,16 @@ public class CategoriaResource {
 	@RequestMapping(value="/listar", method=RequestMethod.GET)
 	public List<Categoria> Listar() {			
 		
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Escritório");
+		/*
+		 * Categoria cat1 = new Categoria(1, "Informática"); Categoria cat2 = new
+		 * Categoria(2, "Escritório");
+		 * 
+		 * List<Categoria> lista = new ArrayList<>(); lista.add(cat1); lista.add(cat2);
+		 */
 		
 		List<Categoria> lista = new ArrayList<>();
-		lista.add(cat1);
-		lista.add(cat2);
-		
-		/*
-		 * List<Categoria> lista = new ArrayList<>();
-		 * 
-		 * lista = service.listar();
-		 */
+		  
+		lista = service.listar();		
 		
 		return lista;
 	}

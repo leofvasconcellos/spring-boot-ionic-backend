@@ -2,7 +2,6 @@ package com.leandro.cursomc.resources;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,9 +21,9 @@ public class PedidoResource {
 	private PedidoService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<Optional<Pedido>> find(@PathVariable Integer id){
+	public ResponseEntity<Pedido> find(@PathVariable Integer id){
 		
-		Optional<Pedido> obj = service.find(id);
+		Pedido obj = service.find(id);
 		
 		return ResponseEntity.ok().body(obj);		
 	}

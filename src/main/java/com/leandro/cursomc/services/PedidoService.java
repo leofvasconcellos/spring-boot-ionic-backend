@@ -17,10 +17,10 @@ public class PedidoService {
 	@Autowired
 	private PedidoRepository repo;
 	
-	public Optional<Pedido> find(Integer id) {
+	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
-		return Optional.ofNullable(obj.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName())));
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 	
 	public List<Pedido> listar() {

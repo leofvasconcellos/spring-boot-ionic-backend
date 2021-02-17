@@ -7,9 +7,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 import com.leandro.cursomc.domain.Categoria;
 import com.leandro.cursomc.services.CategoriaService;
@@ -30,20 +33,21 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value="/listar", method=RequestMethod.GET)
-	public List<Categoria> Listar() {			
-		
-		/*
-		 * Categoria cat1 = new Categoria(1, "Informática"); Categoria cat2 = new
-		 * Categoria(2, "Escritório");
-		 * 
-		 * List<Categoria> lista = new ArrayList<>(); lista.add(cat1); lista.add(cat2);
-		 */
-		
+	public List<Categoria> Listar() {						
 		List<Categoria> lista = new ArrayList<>();
 		  
 		lista = service.listar();		
 		
 		return lista;
 	}
-
+	
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@RequestBody Categoria obj){
+		obj = service.insert(obj);
+		
+		UriComponents uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId());
+		
+		return ResponseEntity.created(uri.toUri()).build();
+	}
 }

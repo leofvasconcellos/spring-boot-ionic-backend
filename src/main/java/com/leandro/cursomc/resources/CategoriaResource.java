@@ -1,7 +1,7 @@
 package com.leandro.cursomc.resources;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 import com.leandro.cursomc.domain.Categoria;
+import com.leandro.cursomc.dto.CategoriaDTO;
 import com.leandro.cursomc.services.CategoriaService;
 
 @RestController
@@ -31,13 +32,12 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);		
 	}
 	
-	@RequestMapping(value="/listar", method=RequestMethod.GET)
-	public List<Categoria> Listar() {						
-		List<Categoria> lista = new ArrayList<>();
-		  
-		lista = service.listar();		
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll() {						
+		List<Categoria> list = service.findAll();		  		
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList()); 
 		
-		return lista;
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)

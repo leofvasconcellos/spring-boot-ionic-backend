@@ -1,6 +1,5 @@
 package com.leandro.cursomc.services;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +24,8 @@ public class CategoriaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
 	
-	public List<Categoria> listar() {
-		List<Categoria> lista = new ArrayList<>();
-		lista = repo.findAll();		
-		
-		return lista;
+	public List<Categoria> findAll() {		
+		return repo.findAll();
 	}
 	
 	public Categoria insert(Categoria obj) {
